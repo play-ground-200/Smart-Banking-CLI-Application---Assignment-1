@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class SmartBanking{
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
@@ -42,6 +43,7 @@ public class SmartBanking{
                     case 7: System.exit(0);break;
                 }
                 break;
+
                 case OPEN_ACCOUNT:
            
 
@@ -52,7 +54,7 @@ public class SmartBanking{
                 
                 do{
                     valid =true;
-                    System.out.print("Enter customer name: ");
+                    System.out.print("Enter account name: ");
                     name = scanner.nextLine().strip();
                     if(name.isBlank()){
                         System.out.println("\033[31mName can't be empty\033[0m");
@@ -68,6 +70,42 @@ public class SmartBanking{
                         
                     }
                 }while(!valid);
+                valid = true;
+                do{
+                    valid =true;
+                    System.out.print("Enter Initial deposit: ");
+                    balance = scanner.nextDouble();
+                    scanner.nextLine();
+                    if((balance<500)){
+                        System.out.println("\033[31mMinimum Initial deposit is RS500.00 !\033[0m");
+                        valid =false;
+                        continue;
+                    }
+                   else valid = true;
+                    
+                  
+                }while(!valid);
+                String[] newname = new String[NAME.length+1];
+                String[] newid = new String[ID.length+1];
+                double[] newbalance = new double[BALANCE.length+1];
+                for (int i = 0; i < newname.length-1; i++) {
+                    newname[i] = NAME[i];
+                    newid[i] = ID[i];
+                    newbalance[i]= BALANCE[i];
+                    System.out.println("dfwe");
+                }
+                newname[newname.length-1]= name;
+                newid[newid.length-1] = "SDB-"+String.format("%05d",newname.length);
+                newbalance[newbalance.length-1] = balance;
+                NAME = newname;
+                ID = newid;
+                BALANCE = newbalance;
+                System.out.println();
+                System.out.print(NAME[NAME.length-1] +" : "+name+ " added sucessfully. Do you want to add new student (Y/n)? ");
+                if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                screen = DASHBOARD;
+                break;
+
             }
            
 
