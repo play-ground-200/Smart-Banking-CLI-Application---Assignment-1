@@ -13,7 +13,11 @@ public class SmartBanking{
         final String TRANSFER_MONEY = "TRANSFER_MONEY";
         final String CHECK_BALANCE = "CHECK_ACCOUNT_BALANCE";
         final String DROP_ACCOUNT = "DROP_EXISTING_ACCOUNT";
+
         String screen = DASHBOARD;
+        String[] ID = new String[0];
+        String[] NAME = new String[0];
+        double[] BALANCE = new double[0];
         
         do{
             System.out.println(clear);
@@ -38,6 +42,32 @@ public class SmartBanking{
                     case 7: System.exit(0);break;
                 }
                 break;
+                case OPEN_ACCOUNT:
+           
+
+                boolean valid = true;
+                String id;
+                String name ;
+                double balance;
+                
+                do{
+                    valid =true;
+                    System.out.print("Enter customer name: ");
+                    name = scanner.nextLine().strip();
+                    if(name.isBlank()){
+                        System.out.println("\033[31mName can't be empty\033[0m");
+                        valid =false;
+                        continue;
+                    }
+                    for (int i = 0; i < name.length(); i++) {
+                        if(!(Character.isLetter(name.charAt(i))) || Character.isSpaceChar(name.charAt(i))){
+                            System.out.println("\033[31mInvalid Name\033[0m");
+                            valid =false;
+                            break;
+                        }
+                        
+                    }
+                }while(!valid);
             }
            
 
