@@ -227,7 +227,86 @@ public class SmartBanking{
                 }while(!valid);
 
                 BALANCE[index2] = BALANCE[index2]+balance;
-                System.out.printf("\nNew A.C balance : RS.%1$,.2f", (BALANCE[index2]-500.00));
+                System.out.printf("\nNew A.C balance : RS.%1$,.2f", (BALANCE[index2]));
+                System.out.println();
+                System.out.print("Do you want to Coninue (Y/n)? ");
+                if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                screen = DASHBOARD;
+                break;
+
+                case WITHDRAW_MONEY:
+
+                 valid2 = true;
+                 int index3 =0;
+                 loop:
+                do{
+                     valid2 =true;
+                    System.out.print("Enter Account ID : ");
+                    IDcheck = scanner.nextLine();
+                    if(IDcheck.isBlank()){
+                        System.out.println(("\033[31mAccount ID can't be empty !\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(IDcheck.length()<9){
+                        System.out.println(("\033[31mInvaid ID!\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(!IDcheck.substring(0, 4).equals("SDB-") || IDcheck.length() != 9){
+                        System.out.println("\033[31mInvalid Account ID !\033[0m");
+                        valid2 = false;
+                        continue;
+                    }
+                    for (int i = 4; i < IDcheck.length(); i++) {
+                        if(!Character.isDigit(IDcheck.charAt(i))){
+                            System.out.println("\033[31mInvalid Account ID !\033[0m");
+                            valid2 =false;
+                            continue;
+                        }
+                        
+                    }
+                    for (int i = 0; i < ID.length; i++) {
+                        if(IDcheck.equals(ID[i])){
+                            index3 = i;
+                            break loop;
+                        }
+                        if(i==ID.length-1){
+                            System.out.println(("\033[31mAccount ID doesn't exist !\033[0m"));
+                            valid2 = false;
+                        }
+                        
+                    }
+
+
+                }while(!valid2);   
+                
+                System.out.printf("\nCurrent A.C balance : RS.%1$,.2f", BALANCE[index3]);
+                 valid = true;
+                do{
+                    valid =true;
+                    System.out.print("\nEnter deposit amount: ");
+                    balance = scanner.nextDouble();
+                    scanner.nextLine();
+                    if((balance<100)){
+                        System.out.println("\033[31mMinimum Initial deposit is RS500.00 !\033[0m");
+                        valid =false;
+                        continue;
+                    }
+                    if(((BALANCE[index3]-balance)<500)){
+                        System.out.println("\033[31mInsuficient Balance !\033[0m\n");
+                        System.out.printf("\033[31mAvailable Balance is : RS.%1$,.2f!\033[0m\n",BALANCE[index3]-500);
+                        
+                        valid =false;
+                        continue;
+                    }
+                   else valid = true;
+                    
+                  
+                }while(!valid);
+
+                BALANCE[index3] = BALANCE[index3]-balance;
+                System.out.printf("\nNew A.C balance : RS.%1$,.2f", (BALANCE[index3]));
                 System.out.println();
                 System.out.print("Do you want to Coninue (Y/n)? ");
                 if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
