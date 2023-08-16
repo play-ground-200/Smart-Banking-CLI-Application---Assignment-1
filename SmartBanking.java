@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 
+
+
 public class SmartBanking{
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
@@ -76,8 +78,8 @@ public class SmartBanking{
                     System.out.print("Enter Initial deposit: ");
                     balance = scanner.nextDouble();
                     scanner.nextLine();
-                    if((balance<500)){
-                        System.out.println("\033[31mMinimum Initial deposit is RS500.00 !\033[0m");
+                    if((balance<5000)){
+                        System.out.println("\033[31mMinimum Initial deposit is RS5000.00 !\033[0m");
                         valid =false;
                         continue;
                     }
@@ -101,12 +103,60 @@ public class SmartBanking{
                 ID = newid;
                 BALANCE = newbalance;
                 System.out.println();
-                System.out.print(NAME[NAME.length-1] +" : "+name+ " added sucessfully. Do you want to add new student (Y/n)? ");
+                System.out.print(ID[ID.length-1] +" : "+name+ " added sucessfully. Do you want to Create new Account (Y/n)? ");
                 if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
                 screen = DASHBOARD;
                 break;
 
+                case CHECK_BALANCE:
+
+                boolean valid2 = true;
+                String IDcheck;
+                int index =0;
+                loop:
+                do{
+                    valid =true;
+                    System.out.print("Enter Account ID : ");
+                    IDcheck = scanner.nextLine();
+                    if(IDcheck.isBlank()){
+                        System.out.println(("\033[31mAccount ID can't be empty !\033[0m"));
+                    }
+                    if(!IDcheck.substring(0, 4).equals("SDB-") || IDcheck.length() != 9){
+                        System.out.println("\033[31mInvalid Account ID !\033[0m");
+                        valid2 = false;
+                        continue;
+                    }
+                    for (int i = 4; i < IDcheck.length(); i++) {
+                        if(!Character.isDigit(IDcheck.charAt(i))){
+                            System.out.println("\033[31mInvalid Account ID !\033[0m");
+                            valid2 =false;
+                            continue;
+                        }
+                        
+                    }
+                    for (int i = 0; i < ID.length; i++) {
+                        if(IDcheck.equals(ID[i])){
+                            index = i;
+                            break loop;
+                        }
+                        if(i==ID.length-1){
+                            System.out.println(("\033[31mAccount ID doesn't exist !\033[0m"));
+                        }
+                        
+                    }
+
+                }while(!valid2);
+                System.out.printf("\nName : %S", NAME[index]);
+                System.out.printf("\nCurrent A.C balance : RS.%1$,.2f", BALANCE[index]);
+                System.out.printf("\nAvailable A.C balance : RS.%1$,.2f", (BALANCE[index]-500.00));
+
+
+
+                default:
+                System.exit(0);
             }
+
+            
            
 
         }while(true);
