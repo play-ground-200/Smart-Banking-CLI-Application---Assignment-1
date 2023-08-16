@@ -442,6 +442,80 @@ public class SmartBanking{
                 screen = DASHBOARD;
                 break;
 
+                case DROP_ACCOUNT:
+
+                valid2 = true;
+                 index3 =0;
+                 loop:
+                do{
+                     valid2 =true;
+                    System.out.print("Enter Account ID : ");
+                    IDcheck = scanner.nextLine();
+                    if(IDcheck.isBlank()){
+                        System.out.println(("\033[31mAccount ID can't be empty !\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(IDcheck.length()<9){
+                        System.out.println(("\033[31mInvaid ID!\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(!IDcheck.substring(0, 4).equals("SDB-") || IDcheck.length() != 9){
+                        System.out.println("\033[31mInvalid Account ID !\033[0m");
+                        valid2 = false;
+                        continue;
+                    }
+                    for (int i = 4; i < IDcheck.length(); i++) {
+                        if(!Character.isDigit(IDcheck.charAt(i))){
+                            System.out.println("\033[31mInvalid Account ID !\033[0m");
+                            valid2 =false;
+                            continue;
+                        }
+                        
+                    }
+                    for (int i = 0; i < ID.length; i++) {
+                        if(IDcheck.equals(ID[i])){
+                            index3 = i;
+                            break loop;
+                        }
+                        if(i==ID.length-1){
+                            System.out.println(("\033[31mAccount ID doesn't exist !\033[0m"));
+                            valid2 = false;
+                        }
+                        
+                    }
+
+
+                }while(!valid2);   
+
+                newid = new String[newid.length-1];
+                newname = new String[newname.length-1];
+                newbalance = new double[newbalance.length-1];
+                boolean found =false;
+                for (int i = 0; i < newid.length-1; i++) {
+                   if (ID[i].equals(IDcheck)){
+                       newid[i]=ID[i+1];
+                       newname[i] = NAME[i+1];
+                       newbalance[i] = NAME[i+1];
+                       found=true;
+                   }
+                   else if(found) {
+                       newid[i]=id[i+1];
+                       newcustomer[i] = customer[i+1];
+                   }
+   
+                   else {
+                       newid[i]=id[i];
+                       newcustomer[i] = customer[i+1];
+                   }
+                   
+                }
+                id =newid;
+                customer = newcustomer;
+
+
+
                 default:
                 System.exit(0);
             }
