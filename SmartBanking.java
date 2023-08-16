@@ -94,7 +94,7 @@ public class SmartBanking{
                     newname[i] = NAME[i];
                     newid[i] = ID[i];
                     newbalance[i]= BALANCE[i];
-                    System.out.println("dfwe");
+                    
                 }
                 newname[newname.length-1]= name;
                 newid[newid.length-1] = "SDB-"+String.format("%05d",newname.length);
