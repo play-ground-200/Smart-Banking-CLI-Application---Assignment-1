@@ -313,6 +313,135 @@ public class SmartBanking{
                 screen = DASHBOARD;
                 break;
 
+                case TRANSFER_MONEY:
+
+                valid2 = true;
+                index3 =0;
+                String IDfromcheck;
+                String IDtocheck;
+                 loop:
+                do{
+                     valid2 =true;
+                    System.out.print("Enter from Account ID : ");
+                    IDfromcheck = scanner.nextLine();
+                    if(IDfromcheck.isBlank()){
+                        System.out.println(("\033[31mAccount ID can't be empty !\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(IDfromcheck.length()<9){
+                        System.out.println(("\033[31mInvaid ID!\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(!IDfromcheck.substring(0, 4).equals("SDB-") || IDfromcheck.length() != 9){
+                        System.out.println("\033[31mInvalid Account ID !\033[0m");
+                        valid2 = false;
+                        continue;
+                    }
+                    for (int i = 4; i < IDfromcheck.length(); i++) {
+                        if(!Character.isDigit(IDfromcheck.charAt(i))){
+                            System.out.println("\033[31mInvalid Account ID !\033[0m");
+                            valid2 =false;
+                            continue;
+                        }
+                        
+                    }
+                    for (int i = 0; i < ID.length; i++) {
+                        if(IDfromcheck.equals(ID[i])){
+                            index3 = i;
+                            break loop;
+                        }
+                        if(i==ID.length-1){
+                            System.out.println(("\033[31mAccount ID doesn't exist !\033[0m"));
+                            valid2 = false;
+                        }
+                        
+                    }
+
+
+                }while(!valid2);  
+                 valid2 = true;
+                int index4 =0;
+                loop:
+                do{
+                     valid2 =true;
+                    System.out.print("Enter to Account ID : ");
+                    IDtocheck = scanner.nextLine();
+                    if(IDtocheck.isBlank()){
+                        System.out.println(("\033[31mAccount ID can't be empty !\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(IDtocheck.length()<9){
+                        System.out.println(("\033[31mInvaid ID!\033[0m"));
+                        valid2 = false;
+                        continue;
+                    }
+                    if(!IDtocheck.substring(0, 4).equals("SDB-") || IDtocheck.length() != 9){
+                        System.out.println("\033[31mInvalid Account ID !\033[0m");
+                        valid2 = false;
+                        continue;
+                    }
+                    for (int i = 4; i < IDtocheck.length(); i++) {
+                        if(!Character.isDigit(IDtocheck.charAt(i))){
+                            System.out.println("\033[31mInvalid Account ID !\033[0m");
+                            valid2 =false;
+                            continue;
+                        }
+                        
+                    }
+                    for (int i = 0; i < ID.length; i++) {
+                        if(IDtocheck.equals(ID[i])){
+                            index4 = i;
+                            break loop;
+                        }
+                        if(i==ID.length-1){
+                            System.out.println(("\033[31mAccount ID doesn't exist !\033[0m"));
+                            valid2 = false;
+                        }
+                        
+                    }
+
+
+                }while(!valid2); 
+                
+                System.out.printf("\nFrom account balance : RS.%1$,.2f", BALANCE[index3]);
+                System.out.printf("\nTo acount balance : RS.%1$,.2f", BALANCE[index4]);
+                 valid = true;
+                do{
+                    valid =true;
+                    System.out.print("\nEnter transfer amount: ");
+                    balance = scanner.nextDouble();
+                    scanner.nextLine();
+                    if((balance<100)){
+                        System.out.println("\033[31mMinimum transfer amount is RS100.00 !\033[0m");
+                        valid =false;
+                        continue;
+                    }
+                    if(((BALANCE[index3]-(balance*1.02))<500)){
+                        System.out.println("\033[31mInsuficient Balance !\033[0m\n");
+                        System.out.printf("\033[31mAvailable Balance is : RS.%1$,.2f!\033[0m\n",BALANCE[index3]-500);
+                        
+                        valid =false;
+                        continue;
+                    }
+                   else valid = true;
+                    
+                  
+                }while(!valid);
+
+                BALANCE[index3] = BALANCE[index3]-(balance*1.02);
+                
+                BALANCE[index4] = BALANCE[index4]+balance;
+                System.out.printf("\nFrom account balance : RS.%1$,.2f", (BALANCE[index3]));
+                System.out.printf("\nTo account balance : RS.%1$,.2f", (BALANCE[index4]));
+                System.out.println();
+                System.out.print("Do you want to Coninue (Y/n)? ");
+                if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                screen = DASHBOARD;
+                break;
+
                 default:
                 System.exit(0);
             }
