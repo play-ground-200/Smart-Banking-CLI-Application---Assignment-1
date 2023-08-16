@@ -489,30 +489,37 @@ public class SmartBanking{
 
                 }while(!valid2);   
 
-                newid = new String[newid.length-1];
-                newname = new String[newname.length-1];
-                newbalance = new double[newbalance.length-1];
+                newid = new String[ID.length-1];
+                newname = new String[NAME.length-1];
+                newbalance = new double[BALANCE.length-1];
                 boolean found =false;
                 for (int i = 0; i < newid.length-1; i++) {
                    if (ID[i].equals(IDcheck)){
                        newid[i]=ID[i+1];
                        newname[i] = NAME[i+1];
-                       newbalance[i] = NAME[i+1];
+                       newbalance[i] = BALANCE[i+1];
                        found=true;
                    }
                    else if(found) {
-                       newid[i]=id[i+1];
-                       newcustomer[i] = customer[i+1];
+                       newid[i]=ID[i+1];
+                       newname[i] = NAME[i+1];
+                       newbalance[i] = BALANCE[i+1];
                    }
    
                    else {
-                       newid[i]=id[i];
-                       newcustomer[i] = customer[i+1];
+                       newid[i]=ID[i];
+                       newname[i] = NAME[i];
+                       newbalance[i] = BALANCE[i];
                    }
                    
                 }
-                id =newid;
-                customer = newcustomer;
+                ID =newid;
+                NAME = newname;
+                BALANCE = newbalance;
+                System.out.print( " remove sucessfully. Do you want to remove another Account (Y/n)? ");
+                if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                screen = DASHBOARD;
+                break;
 
 
 
